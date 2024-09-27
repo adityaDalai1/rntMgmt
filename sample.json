@@ -1,0 +1,47 @@
+[
+    {
+      "name": "Deluxe Suite",
+      "maxcount": 4,
+      "phonenumber": "+1234567890",
+      "rentperday": 200,
+      "type": "Suite",
+      "description": "A luxurious suite with a king-sized bed and a beautiful city view.",
+      "location": "Downtown, City Center",
+      "amenities": ["WiFi", "Air Conditioning", "Flat Screen TV", "Mini Bar", "Room Service"],
+      "availability": true
+    },
+    {
+      "name": "Standard Double",
+      "maxcount": 2,
+      "phonenumber": "+1234567891",
+      "rentperday": 100,
+      "type": "Double",
+      "description": "A comfortable double room with all basic amenities.",
+      "location": "Suburb, Near the Mall",
+      "amenities": ["WiFi", "TV", "Free Parking", "Coffee Maker"],
+      "availability": false
+    },
+    {
+      "name": "Single Room",
+      "maxcount": 1,
+      "phonenumber": "+1234567892",
+      "rentperday": 50,
+      "type": "Single",
+      "description": "A cozy room perfect for solo travelers.",
+      "location": "Near Airport",
+      "amenities": ["WiFi", "Free Breakfast"],
+      "availability": true
+    },
+    {
+      "name": "Penthouse Suite",
+      "maxcount": 6,
+      "phonenumber": "+1234567893",
+      "rentperday": 500,
+      "type": "Suite",
+      "description": "An extravagant penthouse with private pool and rooftop garden.",
+      "location": "Top Floor, Downtown Skyscraper",
+      "amenities": ["WiFi", "Private Pool", "Air Conditioning", "Personal Butler", "Room Service", "Gym Access"],
+      "availability": true
+    }
+  ]
+  
