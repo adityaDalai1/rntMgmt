@@ -35,6 +35,10 @@ const roomSchema = new mongoose.Schema({
     type: [String],  // Array of amenities (e.g., WiFi, Air Conditioning)
     required: true   // At least one amenity is required
   },
+  roomissueddate: {
+    type: Date,
+    required: true
+  },
   availability: {
     type: Boolean,
     default: true    // Availability is true by default
