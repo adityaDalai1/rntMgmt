@@ -6,7 +6,7 @@ import App from './App';
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import forestDuskTheme from './theme/forestDusk'; // Import your custom theme
 
- //const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <ThemeProvider theme={forestDuskTheme}>
