@@ -1,11 +1,45 @@
-import React from 'react'
+import React from 'react';
+import { Box } from '@mui/material'; 
+import { Routes, Route } from 'react-router-dom'; 
+import Navbar from './components/Navbar'; 
+import Footer from './components/Footer'; 
 
-import Footer from './components/Footer';
-import Navbar from './components/Navbar';
+// Placeholder components for routing
+const Home = () => <h1>Welcome to the Rental Management System</h1>;
+const AboutUs = () => <h1>About Us Page</h1>;
+const ShowRooms = () => <h1>Show All Rooms Page</h1>;
+const CreateRoom = () => <h1>Create Room Page</h1>;
+
 const App = () => {
   return (
-    <Footer />
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh', 
+      }}
+    >
+      <Navbar />
 
+      <Box
+        sx={{
+          flex: 1, 
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about-us" element={<AboutUs />} />
+          <Route path="/show-rooms" element={<ShowRooms />} />
+          <Route path="/create-room" element={<CreateRoom />} />
+        </Routes>
+      </Box>
+
+      <Footer />
+    </Box>
   );
 };
+
 export default App;
