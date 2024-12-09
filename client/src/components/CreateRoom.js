@@ -1,185 +1,285 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { Slide, ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { 
+  Box, 
+  TextField, 
+  Typography, 
+  Button, 
+  Snackbar, 
+  Alert 
+} from '@mui/material';
 import axios from 'axios';
 
 const CreateRoom = () => {
   const navigate = useNavigate();
   const [room, setRoom] = useState({
     name: '',
-    number: '',
-    capacity: '',
+    maxcount: '',
+    phonenumber: '',
+    rentperday: '',
+    type: '',
     description: '',
-    available_from: '',
-    facilities: '',
+    location: '',
+    features: '',
   });
 
-  const [showToast, setShowToast] = useState(false);
+  const [notification, setNotification] = useState({
+    open: false,
+    message: '',
+    severity: '',
+  });
 
-  const onChange = (e) => {
+  const handleChange = (e) => {
     setRoom({ ...room, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    axios
-      .post('/api/rooms', room)
-      .then((res) => {
-        setRoom({
-          name: '',
-          number: '',
-          capacity: '',
-          description: '',
-          available_from: '',
-          facilities: '',
-        });
-
-        toast.success('Room added successfully!', {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          transition: Slide,
-        });
-
-        setTimeout(() => {
-          setShowToast(false); // Hide the toast
-          navigate('/'); // Navigate to homepage
-        }, 5000); // Adjust the timeout as needed
-      })
-      .catch((err) => {
-        console.log('Error in CreateRoom!', err);
-        toast.error('Something went wrong, try again!', {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          transition: Slide,
-        });
+    try {
+      await axios.post('http://localhost:5000/rooms', {
+        ...room,
+        features: room.features.split(',').map((item) => item.trim()),
       });
+
+      setNotification({
+        open: true,
+        message: 'Congratulation and Celebration',
+        severity: 'success',
+      });
+
+      setRoom({
+        name: '',
+        maxcount: '',
+        phonenumber: '',
+        rentperday: '',
+        type: '',
+        description: '',
+        location: '',
+        features: '',
+      });
+      setTimeout(() => navigate('/'), 1500);
+    } catch (error) {
+      console.error('Error creating room:', error);
+
+      setNotification({
+        open: true,
+        message: 'Bhariye na room bhariye',
+        severity: 'error',
+      });
+    }
+  };
+
+  const handleCancel = () => {
+    navigate('/');
+  };
+
+  const handleCloseNotification = () => {
+    setNotification({ ...notification, open: false });
   };
 
   return (
-    <div className='CreateRoom'>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-        transition={Slide}
-      />
+    <Box
+      sx={{
+        maxWidth: 600,
+        margin: 'auto',
+        padding: 4,
+        borderRadius: 2,
+        boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
+        backgroundColor: '#1c1c1c', // Dark background for the form
+      }}
+    >
+      <Typography 
+        variant="h4" 
+        component="h1" 
+        textAlign="center" 
+        mb={3}
+        color="primary"
+        fontWeight={700}
+      >
+        Create a New Room
+      </Typography>
+      
+      <form onSubmit={handleSubmit}>
+        <TextField
+          fullWidth
+          label="Room Name"
+          name="name"
+          variant="outlined"
+          value={room.name}
+          onChange={handleChange}
+          required
+          sx={{ mb: 2 }}
+          InputLabelProps={{
+            style: { color: '#93a1a1' }, // Lighter label color for readability
+          }}
+          InputProps={{
+            style: { color: '#fdf6e3' }, // Light text color
+          }}
+        />
+        <TextField
+          fullWidth
+          label="Max Count"
+          name="maxcount"
+          variant="outlined"
+          value={room.maxcount}
+          onChange={handleChange}
+          required
+          type="number"
+          sx={{ mb: 2 }}
+          InputLabelProps={{
+            style: { color: '#93a1a1' },
+          }}
+          InputProps={{
+            style: { color: '#fdf6e3' },
+          }}
+        />
+        <TextField
+          fullWidth
+          label="Phone Number"
+          name="phonenumber"
+          variant="outlined"
+          value={room.phonenumber}
+          onChange={handleChange}
+          required
+          sx={{ mb: 2 }}
+          InputLabelProps={{
+            style: { color: '#93a1a1' },
+          }}
+          InputProps={{
+            style: { color: '#fdf6e3' },
+          }}
+        />
+        <TextField
+          fullWidth
+          label="Rent per Day"
+          name="rentperday"
+          variant="outlined"
+          value={room.rentperday}
+          onChange={handleChange}
+          required
+          type="number"
+          sx={{ mb: 2 }}
+          InputLabelProps={{
+            style: { color: '#93a1a1' },
+          }}
+          InputProps={{
+            style: { color: '#fdf6e3' },
+          }}
+        />
+        <TextField
+          fullWidth
+          label="Type (e.g., Single, Double)"
+          name="type"
+          variant="outlined"
+          value={room.type}
+          onChange={handleChange}
+          required
+          sx={{ mb: 2 }}
+          InputLabelProps={{
+            style: { color: '#93a1a1' },
+          }}
+          InputProps={{
+            style: { color: '#fdf6e3' },
+          }}
+        />
+        <TextField
+          fullWidth
+          label="Description"
+          name="description"
+          variant="outlined"
+          value={room.description}
+          onChange={handleChange}
+          required
+          multiline
+          rows={3}
+          sx={{ mb: 2 }}
+          InputLabelProps={{
+            style: { color: '#93a1a1' },
+          }}
+          InputProps={{
+            style: { color: '#fdf6e3' },
+          }}
+        />
+        <TextField
+          fullWidth
+          label="Location"
+          name="location"
+          variant="outlined"
+          value={room.location}
+          onChange={handleChange}
+          required
+          sx={{ mb: 2 }}
+          InputLabelProps={{
+            style: { color: '#93a1a1' },
+          }}
+          InputProps={{
+            style: { color: '#fdf6e3' },
+          }}
+        />
+        <TextField
+          fullWidth
+          label="Features (comma-separated)"
+          name="features"
+          variant="outlined"
+          value={room.features}
+          onChange={handleChange}
+          required
+          sx={{ mb: 2 }}
+          InputLabelProps={{
+            style: { color: '#93a1a1' },
+          }}
+          InputProps={{
+            style: { color: '#fdf6e3' },
+          }}
+        />
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            mt: 3,
+          }}
+        >
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+            sx={{
+              width: '48%',
+              fontWeight: 'bold',
+              borderRadius: '12px', // Rounded button
+            }}
+          >
+            Create Room
+          </Button>
+          <Button
+            variant="outlined"
+            color="secondary"
+            onClick={handleCancel}
+            sx={{
+              width: '48%',
+              fontWeight: 'bold',
+              borderRadius: '12px',
+            }}
+          >
+            Cancel
+          </Button>
+        </Box>
+      </form>
 
-      <div className='container'>
-        <div className='row'>
-          <div className='col-md-8 m-auto'>
-            <br />
-            <Link to='/' className='btn btn-outline-warning float-left'>
-              Show Room List
-            </Link>
-          </div>
-          <div className='col-md-8 m-auto'>
-            <h1 className='display-4 text-center'>Add Room</h1>
-            <p className='lead text-center'>Create a new room</p>
-
-            <form noValidate onSubmit={onSubmit}>
-              <div className='form-group'>
-                <input
-                  type='text'
-                  placeholder='Name of the Room'
-                  name='name'
-                  className='form-control'
-                  value={room.name}
-                  onChange={onChange}
-                />
-              </div>
-              <br />
-
-              <div className='form-group'>
-                <input
-                  type='text'
-                  placeholder='Room Number'
-                  name='number'
-                  className='form-control'
-                  value={room.number}
-                  onChange={onChange}
-                />
-              </div>
-              <br />
-
-              <div className='form-group'>
-                <input
-                  type='number'
-                  placeholder='Capacity'
-                  name='capacity'
-                  className='form-control'
-                  value={room.capacity}
-                  onChange={onChange}
-                />
-              </div>
-              <br />
-
-              <div className='form-group'>
-                <input
-                  type='text'
-                  placeholder='Describe the Room'
-                  name='description'
-                  className='form-control'
-                  value={room.description}
-                  onChange={onChange}
-                />
-              </div>
-              <br />
-
-              <div className='form-group'>
-                <input
-                  type='date'
-                  placeholder='Available From'
-                  name='available_from'
-                  className='form-control'
-                  value={room.available_from}
-                  onChange={onChange}
-                />
-              </div>
-              <br />
-
-              <div className='form-group'>
-                <input
-                  type='text'
-                  placeholder='Facilities (e.g., Projector, Whiteboard)'
-                  name='facilities'
-                  className='form-control'
-                  value={room.facilities}
-                  onChange={onChange}
-                />
-              </div>
-              <br />
-
-              <input
-                type='submit'
-                className='btn btn-outline-warning btn-block mt-4'
-              />
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
+      <Snackbar
+        open={notification.open}
+        autoHideDuration={3000}
+        onClose={handleCloseNotification}
+      >
+        <Alert
+          onClose={handleCloseNotification}
+          severity={notification.severity}
+          sx={{ width: '100%' }}
+        >
+          {notification.message}
+        </Alert>
+      </Snackbar>
+    </Box>
   );
 };
 

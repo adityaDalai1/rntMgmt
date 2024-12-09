@@ -8,7 +8,7 @@ const HomePage = () => {
   return (
     <Container maxWidth="lg" sx={{ textAlign: 'center', py: 5 }}>
       <Typography variant="h2" component="h1" color="primary" gutterBottom>
-        Welcome to the Book Management System
+        Welcome to the Rental Management System
       </Typography>
       <Typography variant="h5" gutterBottom>
         Manage your rental efficiently and effectively.
@@ -22,7 +22,7 @@ const HomePage = () => {
         >
           View Rooms
         </Button>
-      </Box>//
+      </Box>
     </Container>
   );
 };

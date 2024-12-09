@@ -4,11 +4,12 @@ import { Routes, Route } from 'react-router-dom';
 import HomePage from './components/HomePage';
 import Navbar from './components/Navbar'; 
 import Footer from './components/Footer'; 
+import CreateRoom from './components/CreateRoom';
+
 // Placeholder components for routing
 
 const AboutUs = () => <h1>About Us Page</h1>;
 const ShowRooms = () => <h1>Show All Rooms Page</h1>;
-const CreateRoom = () => <h1>Create Room Page</h1>;
 
 const App = () => {
   return (
