@@ -1,83 +1,58 @@
+// src/components/Navbar.js
 import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Button,
-  Box,
-  IconButton,
-} from '@mui/material';
-import GitHubIcon from '@mui/icons-material/GitHub';
-import HomeIcon from '@mui/icons-material/Home';
-import InfoIcon from '@mui/icons-material/Info';
-import ViewListIcon from '@mui/icons-material/ViewList';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { Link } from 'react-router-dom';
+import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
 
 const Navbar = () => {
   return (
-    <AppBar
-      position="static"
-      color="transparent"
-      elevation={0}
-      sx={{ width: '100%' }}
-    >
+    <AppBar position="static" color="transparent" elevation={0} sx={{ width: '100%' }}>
       <Toolbar>
-        <Typography
-          variant="h6"
-          component="div"
-          sx={{ flexGrow: 1, color: 'primary.main' }}
+        <Typography 
+          variant="h6" 
+          component={Link} 
+          to="/" 
+          sx={{ 
+            flexGrow: 1, 
+            color: 'primary.main',
+            textDecoration: 'none',
+            '&:hover': {
+              opacity: 0.8,
+              cursor: 'pointer'
+            }
+          }}
         >
-          Rental Management System
+          Room Management System
         </Typography>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-
+        <Box sx={{ display: 'flex', gap: 2 }}>
           <Button
+            component={Link}
+            to="/room-list"
             color="primary"
-            component={RouterLink}
-            to="/"
-            startIcon={<HomeIcon />}
+            variant="outlined"
+            sx={{
+              textTransform: 'none',
+              '&:hover': {
+                backgroundColor: 'primary.light',
+                color: 'white',
+              },
+            }}
           >
-            Home
+            View Rooms
           </Button>
-
           <Button
-            color="primary"
-            component={RouterLink}
-            to="/about-us"
-            startIcon={<InfoIcon />}
-          >
-            About Us
-          </Button>
-
-          <Button
-            color="primary"
-            component={RouterLink}
-            to="/show-rooms"
-            startIcon={<ViewListIcon />}
-          >
-            Show All Rooms
-          </Button>
-
-          <Button
-            color="primary"
-            component={RouterLink}
+            component={Link}
             to="/create-room"
-            startIcon={<AddCircleIcon />}
-          >
-            Create Room
-          </Button>
-
-          <IconButton
             color="primary"
-            component="a"
-            href="https://github.com/adityaDalai1/rntMgmt-Adi"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub"
+            variant="contained"
+            sx={{
+              textTransform: 'none',
+              '&:hover': {
+                backgroundColor: 'primary.dark',
+              },
+            }}
           >
-            <GitHubIcon />
-          </IconButton>
+            Add Room
+          </Button>
         </Box>
       </Toolbar>
     </AppBar>

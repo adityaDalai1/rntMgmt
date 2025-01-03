@@ -1,31 +1,31 @@
+// src/components/Footer.js
 import React from 'react';
 import { Box, Typography, IconButton } from '@mui/material';
-import { GitHub, LinkedIn, Twitter } from '@mui/icons-material'; 
+import { GitHub, LinkedIn, Twitter } from '@mui/icons-material';
 
 const Footer = () => (
-  <Box
-    component="footer"
+  <Box 
+    component="footer" 
     sx={{
-      bgcolor: 'primary.main', 
-      color: 'text.primary', 
+      bgcolor: 'background.paper',
+      color: 'text.secondary',
       py: 4,
-      px: 2,
       textAlign: 'center',
-      borderTop: `2px solid ${theme => theme.palette.secondary.main}`, 
+      borderTop: theme => `1px solid ${theme.palette.primary.main}`, // Top border for styling
     }}
   >
     <Typography
       variant="h6"
       gutterBottom
       sx={{
-        fontFamily: '"Fira Sans", sans-serif', 
-        fontWeight: 700, 
+        fontFamily: '"Fira Sans", sans-serif',
+        fontWeight: 700,
         fontSize: '1.5rem',
+        color: 'primary.main',
       }}
     >
-      Built with ❤️ by Aditya
+      Built with ❤️ by [Your Name]
     </Typography>
-
     <Typography
       variant="body2"
       sx={{
@@ -35,31 +35,31 @@ const Footer = () => (
         color: 'text.secondary',
       }}
     >
-      © {new Date().getFullYear()} Bsc Cohort | All Rights Reserved
+      © {new Date().getFullYear()} Room Management System | All Rights Reserved
     </Typography>
 
     <Box sx={{ mt: 2 }}>
       <IconButton
-        href="https://github.com/adityaDalai1"
+        href="https://github.com/your-github-profile"
         target="_blank"
         rel="noopener noreferrer"
-        sx={{ color: 'text.primary' }}
+        sx={{ color: 'primary.main' }}
       >
         <GitHub />
       </IconButton>
       <IconButton
-        href="https://www.linkedin.com/in/aditya-dalai-a515b6326/"
+        href="https://www.linkedin.com/in/your-linkedin-profile/"
         target="_blank"
         rel="noopener noreferrer"
-        sx={{ color: 'text.primary' }}
+        sx={{ color: 'primary.main' }}
       >
         <LinkedIn />
       </IconButton>
       <IconButton
-        href="https://twitter.com/your-profile"
+        href="https://twitter.com/your-twitter-profile"
         target="_blank"
         rel="noopener noreferrer"
-        sx={{ color: 'text.primary' }}
+        sx={{ color: 'primary.main' }}
       >
         <Twitter />
       </IconButton>
