@@ -11,39 +11,45 @@ import {
   CardContent,
   Fade,
   CircularProgress,
+  Divider
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import HotelIcon from '@mui/icons-material/Hotel';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import PeopleIcon from '@mui/icons-material/People';
+import DownloadIcon from '@mui/icons-material/Download';
+import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
+import PersonIcon from '@mui/icons-material/Person';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import QrCodeIcon from '@mui/icons-material/QrCode';
+import SearchIcon from '@mui/icons-material/Search';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import NotesIcon from '@mui/icons-material/Notes';
 import axios from 'axios';
 
 const HomePage = () => {
   const [stats, setStats] = useState({
     totalRooms: 0,
-    availableRooms: 0,
-    mostRecentRoom: null,
+    uniqueTenants: 0,
+    recentRoom: null
   });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('https://5000-adityadalai1-rntmgmtadi-ckl562dv9tf.ws-us117.gitpod.io/api/rooms')
-      .then((res) => {
+    axios.get('/api/rooms')
+      .then(res => {
         const rooms = res.data;
-        const availableRooms = rooms.filter((room) => room.availability).length;
-        const mostRecentRoom = rooms.sort(
-          (a, b) => new Date(b.roomissueddate) - new Date(a.roomissueddate)
+        const uniqueTenants = new Set(rooms.map(room => room.tenantName)).size;
+        const recentRoom = rooms.sort((a, b) =>
+          new Date(b.createdAt) - new Date(a.createdAt)
         )[0];
 
         setStats({
           totalRooms: rooms.length,
-          availableRooms,
-          mostRecentRoom,
+          uniqueTenants,
+          recentRoom
         });
         setLoading(false);
       })
-      .catch((err) => {
+      .catch(err => {
         console.error('Error fetching stats:', err);
         setLoading(false);
       });
@@ -63,10 +69,10 @@ const HomePage = () => {
         {/* Welcome Section */}
         <Box textAlign="center" mb={6}>
           <Typography variant="h3" component="h1" color="primary" gutterBottom>
-            Welcome to Room Management System
+            Welcome to Rental Management System
           </Typography>
           <Typography variant="h6" color="text.secondary" gutterBottom>
-            Manage and organize your rooms efficiently
+            Manage and organize your rentals effectively
           </Typography>
         </Box>
 
@@ -89,12 +95,12 @@ const HomePage = () => {
           <Grid item xs={12} md={4}>
             <Card sx={{ height: '100%', display: 'flex', alignItems: 'center' }}>
               <CardContent sx={{ textAlign: 'center', width: '100%' }}>
-                <CheckCircleIcon color="primary" sx={{ fontSize: 40, mb: 2 }} />
+                <PersonIcon color="primary" sx={{ fontSize: 40, mb: 2 }} />
                 <Typography variant="h4" gutterBottom>
-                  {stats.availableRooms}
+                  {stats.uniqueTenants}
                 </Typography>
                 <Typography variant="subtitle1" color="text.secondary">
-                  Available Rooms
+                  Unique Tenants
                 </Typography>
               </CardContent>
             </Card>
@@ -103,12 +109,12 @@ const HomePage = () => {
           <Grid item xs={12} md={4}>
             <Card sx={{ height: '100%', display: 'flex', alignItems: 'center' }}>
               <CardContent sx={{ textAlign: 'center', width: '100%' }}>
-                <PeopleIcon color="primary" sx={{ fontSize: 40, mb: 2 }} />
+                <CalendarTodayIcon color="primary" sx={{ fontSize: 40, mb: 2 }} />
                 <Typography variant="h4" gutterBottom>
-                  Most Recent Room
+                  Latest Room
                 </Typography>
                 <Typography variant="subtitle1" color="text.secondary">
-                  {stats.mostRecentRoom?.name || 'No rooms yet'}
+                  {stats.recentRoom?.roomName || 'No rooms yet'}
                 </Typography>
               </CardContent>
             </Card>
@@ -126,10 +132,10 @@ const HomePage = () => {
           <Grid item xs={12} sm={6} md={4}>
             <Button
               component={Link}
-              to="/rooms"
+              to="/room-list"
               variant="contained"
               size="large"
-              startIcon={<HotelIcon />}
+              startIcon={<MeetingRoomIcon />}
               fullWidth
               sx={{ py: 2 }}
             >
@@ -154,16 +160,75 @@ const HomePage = () => {
           <Grid item xs={12} sm={6} md={4}>
             <Button
               component={Link}
-              to="/room-locations"
+              to="/export"
               variant="contained"
               size="large"
-              startIcon={<LocationOnIcon />}
+              startIcon={<DownloadIcon />}
               fullWidth
               sx={{ py: 2 }}
             >
-              Room Locations
+              Export Data
             </Button>
           </Grid>
+
+          <Grid item xs={12} sm={6} md={4}>
+            <Button
+              component={Link}
+              to="/qr-codes"
+              variant="contained"
+              size="large"
+              startIcon={<QrCodeIcon />}
+              fullWidth
+              sx={{ py: 2 }}
+            >
+              QR Codes
+            </Button>
+          </Grid>
+
+          <Grid item xs={12} sm={6} md={4}>
+            <Button
+              component={Link}
+              to="/notes/home"
+              variant="contained"
+              size="large"
+              startIcon={<NotesIcon />}
+              fullWidth
+              sx={{ py: 2 }}
+            >
+              Notes
+            </Button>
+          </Grid>
+
+          <Grid item xs={12} sm={6} md={4}>
+            <Button
+              component="a"
+              href="https://github.com/rental-management-system"
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="contained"
+              size="large"
+              startIcon={<GitHubIcon />}
+              fullWidth
+              sx={{ py: 2 }}
+            >
+              GitHub
+            </Button>
+          </Grid>
+
+          <Grid item xs={12} sm={6} md={4}>
+            <Button
+              component={Link}
+              to="/search"
+              variant="contained"
+              size="large"
+              startIcon={<SearchIcon />}
+              fullWidth
+              sx={{ py: 2 }}
+            >
+              Search Rooms
+            </Button>
+          </Grid>
+
         </Grid>
       </Container>
     </Fade>

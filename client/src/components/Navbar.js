@@ -1,7 +1,7 @@
 // src/components/Navbar.js
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
+import { AppBar, Toolbar, Typography } from '@mui/material';
 
 const Navbar = () => {
   return (
@@ -21,39 +21,8 @@ const Navbar = () => {
             }
           }}
         >
-          Room Management System
+          Rental Management System
         </Typography>
-        <Box sx={{ display: 'flex', gap: 2 }}>
-          <Button
-            component={Link}
-            to="/room-list"
-            color="primary"
-            variant="outlined"
-            sx={{
-              textTransform: 'none',
-              '&:hover': {
-                backgroundColor: 'primary.light',
-                color: 'white',
-              },
-            }}
-          >
-            View Rooms
-          </Button>
-          <Button
-            component={Link}
-            to="/create-room"
-            color="primary"
-            variant="contained"
-            sx={{
-              textTransform: 'none',
-              '&:hover': {
-                backgroundColor: 'primary.dark',
-              },
-            }}
-          >
-            Add Room
-          </Button>
-        </Box>
       </Toolbar>
     </AppBar>
   );

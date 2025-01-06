@@ -1,3 +1,4 @@
+// src/components/RoomCard.js
 import React from 'react';
 import { Card, CardContent, Typography, Button, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
@@ -19,18 +20,21 @@ const RoomCard = ({ room }) => {
       }}
     >
       <img
-        src="https://images.unsplash.com/photo-1560523160-cb7c8db98d94"
+        src="https://images.unsplash.com/photo-1560185127-6a8c1b3a3774"
         alt="Room"
         style={{ height: 200, objectFit: 'cover', width: '100%' }}
       />
       <CardContent sx={{ flexGrow: 1 }}>
         <Typography variant="h6" component="div" color="primary" gutterBottom>
-          <Link to={`/show-room/${room._id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+          <Link
+            to={`/show-room/${room._id}`}
+            style={{ textDecoration: 'none', color: 'inherit' }}
+          >
             {room.name}
           </Link>
         </Typography>
         <Typography variant="subtitle1" color="text.secondary">
-          Capacity: {room.capacity} people
+          Location: {room.location}
         </Typography>
         <Typography
           variant="body2"
@@ -44,7 +48,7 @@ const RoomCard = ({ room }) => {
             WebkitBoxOrient: 'vertical',
           }}
         >
-          {room.description}
+          {room.description || 'No description available.'}
         </Typography>
       </CardContent>
       <Box sx={{ p: 2, mt: 'auto' }}>

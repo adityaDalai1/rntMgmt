@@ -1,48 +1,40 @@
+// src/App.js
 import React from 'react';
-import { Box } from '@mui/material';
-import { Routes, Route } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
+import { ThemeProvider, CssBaseline, Box } from '@mui/material';
+import forestDuskTheme from './theme/forestDusk';
 
-import HomePage from './components/HomePage';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import CreateRoom from './components/CreateRoom';
 import ShowRoomList from './components/ShowRoomList';
 import ShowRoomDetails from './components/ShowRoomDetails';
 import UpdateRoomInfo from './components/UpdateRoomInfo';
+import HomePage from './components/HomePage';
+import ExportPage from './components/ExportPage';
+import QRCodePage from './components/QRCodePage';
+import SearchRoom from './components/SearchRoom';
 
-// Placeholder components for routing
-const App = () => {
-  return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        minHeight: '100vh',
-      }}
-    >
-      <Navbar /> {/* Navbar at the top of the page */}
-
-      <Box
-        sx={{
-          flex: 1, // Ensures content area grows to take up available space
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
+const App = () => (
+  <ThemeProvider theme={forestDuskTheme}>
+    <CssBaseline />
+    <Box display="flex" flexDirection="column" minHeight="100vh">
+      <Navbar />
+      <Box component="main" flexGrow={1} py={3}>
         <Routes>
-          {/* Routes for different pages */}
-          <Route path="/rooms" element={<ShowRoomList />} /> {/* List of all rooms */}
-          <Route path="/create-room" element={<CreateRoom />} /> {/* Page to create a room */}
-          <Route path="/show-room/:id" element={<ShowRoomDetails />} /> {/* Show details of a room */}
-          <Route path="/edit-room/:id" element={<UpdateRoomInfo />} /> {/* Edit room details */}
-          <Route path="/" element={<HomePage />} /> {/* Homepage route */}
+          <Route path="/" element={<HomePage />} />
+          <Route path="/room-list" element={<ShowRoomList />} />
+          <Route path="/create-room" element={<CreateRoom />} />
+          <Route path="/edit-room/:id" element={<UpdateRoomInfo />} />
+          <Route path="/show-room/:id" element={<ShowRoomDetails />} />
+          <Route path="/export" element={<ExportPage />} />
+          <Route path="/qr-codes" element={<QRCodePage />} />
+          <Route path="/search" element={<SearchRoom />} />
         </Routes>
       </Box>
-
-      <Footer /> {/* Footer at the bottom of the page */}
+      <Footer />
     </Box>
-  );
-};
+  </ThemeProvider>
+);
 
 export default App;

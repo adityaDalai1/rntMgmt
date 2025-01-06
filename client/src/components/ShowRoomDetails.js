@@ -1,4 +1,3 @@
-// src/components/ShowRoomDetails.js
 import React, { useState, useEffect } from 'react';
 import { useParams, Link as RouterLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -12,16 +11,12 @@ import {
   CardMedia,
   Divider,
   Box,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(4),
@@ -39,7 +34,7 @@ const ShowRoomDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`/api/rooms/${id}`) // Adjust endpoint for rooms
+      .get(`/api/rooms/${id}`)
       .then((res) => {
         setRoom(res.data);
       })
@@ -54,8 +49,8 @@ const ShowRoomDetails = () => {
 
   const handleDeleteConfirm = () => {
     axios
-      .delete(`/api/rooms/${id}`) // Adjust endpoint for rooms
-      .then(() => {
+      .delete(`/api/rooms/${id}`)
+      .then((res) => {
         navigate('/room-list');
       })
       .catch((err) => {
@@ -77,7 +72,7 @@ const ShowRoomDetails = () => {
               <CardMedia
                 component="img"
                 height="300"
-                image="https://images.unsplash.com/photo-1613682854954-7a5c7c3c78c6" // Update with a relevant room image
+                image="https://images.unsplash.com/photo-1495446815901-a7297e633e8d" // Placeholder image, replace if necessary
                 alt={room.name}
               />
             </Card>
@@ -87,19 +82,22 @@ const ShowRoomDetails = () => {
               {room.name}
             </Typography>
             <Typography variant="h6" color="textSecondary" gutterBottom>
-              Capacity: {room.capacity}
+              Located in {room.location}
             </Typography>
             <Divider sx={{ my: 2 }} />
+
+            {/* Display room details */}
             <Box display="flex" flexDirection="column">
               <Typography variant="body1" paragraph>
                 {room.description}
               </Typography>
-              <Typography variant="body1">Room Number: {room.roomNumber}</Typography>
-              <Typography variant="body1">Availability: {room.availability ? 'Available' : 'Not Available'}</Typography>
-              <Typography variant="body1">Price per Hour: ${room.pricePerHour}</Typography>
+              <Typography variant="body1">Price: ${room.price}</Typography>
+              <Typography variant="body1">Availability: {room.isAvailable ? 'Available' : 'Unavailable'}</Typography>
+              <Typography variant="body1">Added On: {new Date(room.addedDate).toLocaleDateString()}</Typography>
             </Box>
           </Grid>
         </Grid>
+
         <Box mt={4} display="flex" justifyContent="space-between">
           <Button
             startIcon={<ArrowBackIcon />}

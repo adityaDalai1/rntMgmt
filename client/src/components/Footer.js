@@ -1,7 +1,6 @@
 // src/components/Footer.js
 import React from 'react';
-import { Box, Typography, IconButton } from '@mui/material';
-import { GitHub, LinkedIn, Twitter } from '@mui/icons-material';
+import { Box, Typography } from '@mui/material';
 
 const Footer = () => (
   <Box 
@@ -10,60 +9,17 @@ const Footer = () => (
       bgcolor: 'background.paper',
       color: 'text.secondary',
       py: 4,
+      width: '100%',
       textAlign: 'center',
-      borderTop: theme => `1px solid ${theme.palette.primary.main}`, // Top border for styling
+      borderTop: `1px solid ${theme => theme.palette.primary.main}`, // Optional: add a top border
     }}
   >
-    <Typography
-      variant="h6"
-      gutterBottom
-      sx={{
-        fontFamily: '"Fira Sans", sans-serif',
-        fontWeight: 700,
-        fontSize: '1.5rem',
-        color: 'primary.main',
-      }}
-    >
-      Built with ❤️ by [Your Name]
+    <Typography variant="h6" gutterBottom>
+             Rental Management System
     </Typography>
-    <Typography
-      variant="body2"
-      sx={{
-        mt: 1,
-        fontFamily: '"Roboto", sans-serif',
-        fontSize: '0.9rem',
-        color: 'text.secondary',
-      }}
-    >
-      © {new Date().getFullYear()} Room Management System | All Rights Reserved
+    <Typography variant="body2" sx={{ mt: 2 }}>
+      © {new Date().getFullYear()} Room Rental Co. | All Rights Reserved
     </Typography>
-
-    <Box sx={{ mt: 2 }}>
-      <IconButton
-        href="https://github.com/your-github-profile"
-        target="_blank"
-        rel="noopener noreferrer"
-        sx={{ color: 'primary.main' }}
-      >
-        <GitHub />
-      </IconButton>
-      <IconButton
-        href="https://www.linkedin.com/in/your-linkedin-profile/"
-        target="_blank"
-        rel="noopener noreferrer"
-        sx={{ color: 'primary.main' }}
-      >
-        <LinkedIn />
-      </IconButton>
-      <IconButton
-        href="https://twitter.com/your-twitter-profile"
-        target="_blank"
-        rel="noopener noreferrer"
-        sx={{ color: 'primary.main' }}
-      >
-        <Twitter />
-      </IconButton>
-    </Box>
   </Box>
 );
 

@@ -2,14 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-function UpdateRoomInfo() {
+function UpdateRoomInfo(props) {
   const [room, setRoom] = useState({
     name: '',
-    roomNumber: '',
-    capacity: '',
+    maxcount: '',
+    phonenumber: '',
+    rentperday: '',
+    type: '',
     description: '',
-    availability: false,
-    pricePerHour: '',
+    location: '',
+    amenities: [],
+    roomissueddate: '',
+    availability: true
   });
 
   const { id } = useParams();
@@ -17,15 +21,19 @@ function UpdateRoomInfo() {
 
   useEffect(() => {
     axios
-      .get(`/api/rooms/${id}`) // Adjust endpoint for rooms
+      .get(`/api/rooms/${id}`)
       .then((res) => {
         setRoom({
           name: res.data.name,
-          roomNumber: res.data.roomNumber,
-          capacity: res.data.capacity,
+          maxcount: res.data.maxcount,
+          phonenumber: res.data.phonenumber,
+          rentperday: res.data.rentperday,
+          type: res.data.type,
           description: res.data.description,
-          availability: res.data.availability,
-          pricePerHour: res.data.pricePerHour,
+          location: res.data.location,
+          amenities: res.data.amenities,
+          roomissueddate: res.data.roomissueddate,
+          availability: res.data.availability
         });
       })
       .catch((err) => {
@@ -35,11 +43,12 @@ function UpdateRoomInfo() {
   }, [id]);
 
   const onChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setRoom({
-      ...room,
-      [name]: type === 'checkbox' ? checked : value,
-    });
+    const { name, value } = e.target;
+    if (name === 'amenities') {
+      setRoom({ ...room, amenities: value.split(',') });
+    } else {
+      setRoom({ ...room, [name]: value });
+    }
   };
 
   const onSubmit = (e) => {
@@ -47,16 +56,20 @@ function UpdateRoomInfo() {
 
     const data = {
       name: room.name,
-      roomNumber: room.roomNumber,
-      capacity: room.capacity,
+      maxcount: room.maxcount,
+      phonenumber: room.phonenumber,
+      rentperday: room.rentperday,
+      type: room.type,
       description: room.description,
-      availability: room.availability,
-      pricePerHour: room.pricePerHour,
+      location: room.location,
+      amenities: room.amenities,
+      roomissueddate: room.roomissueddate,
+      availability: room.availability
     };
 
     axios
-      .put(`/api/rooms/${id}`, data) // Adjust endpoint for rooms
-      .then(() => {
+      .put(`/api/rooms/${id}`, data)
+      .then((res) => {
         navigate(`/show-room/${id}`);
       })
       .catch((err) => {
@@ -71,7 +84,7 @@ function UpdateRoomInfo() {
         <div className="row">
           <div className="col-md-8 m-auto">
             <br />
-            <Link to="/room-list" className="btn btn-outline-warning float-left">
+            <Link to="/" className="btn btn-outline-warning float-left">
               Show Room List
             </Link>
           </div>
@@ -84,7 +97,7 @@ function UpdateRoomInfo() {
         <div className="col-md-8 m-auto">
           <form noValidate onSubmit={onSubmit}>
             <div className="form-group">
-              <label htmlFor="name">Name</label>
+              <label htmlFor="name">Room Name</label>
               <input
                 type="text"
                 placeholder="Name of the Room"
@@ -97,26 +110,52 @@ function UpdateRoomInfo() {
             <br />
 
             <div className="form-group">
-              <label htmlFor="roomNumber">Room Number</label>
+              <label htmlFor="maxcount">Max Count</label>
               <input
-                type="text"
-                placeholder="Room Number"
-                name="roomNumber"
+                type="number"
+                placeholder="Max Count of People"
+                name="maxcount"
                 className="form-control"
-                value={room.roomNumber}
+                value={room.maxcount}
                 onChange={onChange}
               />
             </div>
             <br />
 
             <div className="form-group">
-              <label htmlFor="capacity">Capacity</label>
+              <label htmlFor="phonenumber">Phone Number</label>
+              <input
+                type="text"
+                placeholder="Phone Number"
+                name="phonenumber"
+                className="form-control"
+                value={room.phonenumber}
+                onChange={onChange}
+              />
+            </div>
+            <br />
+
+            <div className="form-group">
+              <label htmlFor="rentperday">Rent Per Day</label>
               <input
                 type="number"
-                placeholder="Capacity"
-                name="capacity"
+                placeholder="Rent per Day"
+                name="rentperday"
                 className="form-control"
-                value={room.capacity}
+                value={room.rentperday}
+                onChange={onChange}
+              />
+            </div>
+            <br />
+
+            <div className="form-group">
+              <label htmlFor="type">Room Type</label>
+              <input
+                type="text"
+                placeholder="Room Type (e.g., Single, Double)"
+                name="type"
+                className="form-control"
+                value={room.type}
                 onChange={onChange}
               />
             </div>
@@ -125,7 +164,6 @@ function UpdateRoomInfo() {
             <div className="form-group">
               <label htmlFor="description">Description</label>
               <textarea
-                type="text"
                 placeholder="Description of the Room"
                 name="description"
                 className="form-control"
@@ -136,28 +174,51 @@ function UpdateRoomInfo() {
             <br />
 
             <div className="form-group">
-              <label htmlFor="availability">
-                <input
-                  type="checkbox"
-                  name="availability"
-                  checked={room.availability}
-                  onChange={onChange}
-                  style={{ marginRight: '8px' }}
-                />
-                Available
-              </label>
+              <label htmlFor="location">Location</label>
+              <input
+                type="text"
+                placeholder="Location of the Room"
+                name="location"
+                className="form-control"
+                value={room.location}
+                onChange={onChange}
+              />
             </div>
             <br />
 
             <div className="form-group">
-              <label htmlFor="pricePerHour">Price Per Hour</label>
+              <label htmlFor="amenities">Amenities</label>
               <input
                 type="text"
-                placeholder="Price Per Hour"
-                name="pricePerHour"
+                placeholder="Amenities (comma separated)"
+                name="amenities"
                 className="form-control"
-                value={room.pricePerHour}
+                value={room.amenities.join(',')}
                 onChange={onChange}
+              />
+            </div>
+            <br />
+
+            <div className="form-group">
+              <label htmlFor="roomissueddate">Room Issued Date</label>
+              <input
+                type="date"
+                placeholder="Room Issued Date"
+                name="roomissueddate"
+                className="form-control"
+                value={room.roomissueddate}
+                onChange={onChange}
+              />
+            </div>
+            <br />
+
+            <div className="form-group">
+              <label htmlFor="availability">Availability</label>
+              <input
+                type="checkbox"
+                name="availability"
+                checked={room.availability}
+                onChange={(e) => setRoom({ ...room, availability: e.target.checked })}
               />
             </div>
             <br />

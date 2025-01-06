@@ -1,10 +1,9 @@
-// src/components/ShowRoomList.js
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Button, Typography, Container, Grid, CircularProgress, Box } from '@mui/material';
 
-import RoomCard from './RoomCard'; // Ensure RoomCard is correctly imported
+import RoomCard from './RoomCard';
 
 function ShowRoomList() {
   const [rooms, setRooms] = useState([]);
@@ -12,7 +11,7 @@ function ShowRoomList() {
 
   useEffect(() => {
     axios
-      .get(`/api/rooms`) // Adjust the API endpoint if necessary
+      .get(`/api/rooms`)
       .then((res) => {
         setRooms(res.data);
         setLoading(false); // Set loading to false once data is fetched
