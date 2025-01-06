@@ -11,40 +11,35 @@ import {
   CardContent,
   Fade,
   CircularProgress,
-  Divider
+  
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import HotelIcon from '@mui/icons-material/Hotel';
 import DownloadIcon from '@mui/icons-material/Download';
 import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
-import PersonIcon from '@mui/icons-material/Person';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import QrCodeIcon from '@mui/icons-material/QrCode';
 import SearchIcon from '@mui/icons-material/Search';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import NotesIcon from '@mui/icons-material/Notes';
 import axios from 'axios';
 
 const HomePage = () => {
   const [stats, setStats] = useState({
     totalRooms: 0,
-    uniqueTenants: 0,
     recentRoom: null
   });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('/api/rooms')
+    axios.get('https://5000-adityadalai1-rntmgmtadi-ckl562dv9tf.ws-us117.gitpod.io/api/rooms')
       .then(res => {
         const rooms = res.data;
-        const uniqueTenants = new Set(rooms.map(room => room.tenantName)).size;
         const recentRoom = rooms.sort((a, b) =>
           new Date(b.createdAt) - new Date(a.createdAt)
         )[0];
 
         setStats({
           totalRooms: rooms.length,
-          uniqueTenants,
           recentRoom
         });
         setLoading(false);
@@ -78,7 +73,7 @@ const HomePage = () => {
 
         {/* Stats Cards */}
         <Grid container spacing={4} mb={6}>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={6}>
             <Card sx={{ height: '100%', display: 'flex', alignItems: 'center' }}>
               <CardContent sx={{ textAlign: 'center', width: '100%' }}>
                 <HotelIcon color="primary" sx={{ fontSize: 40, mb: 2 }} />
@@ -92,21 +87,7 @@ const HomePage = () => {
             </Card>
           </Grid>
 
-          <Grid item xs={12} md={4}>
-            <Card sx={{ height: '100%', display: 'flex', alignItems: 'center' }}>
-              <CardContent sx={{ textAlign: 'center', width: '100%' }}>
-                <PersonIcon color="primary" sx={{ fontSize: 40, mb: 2 }} />
-                <Typography variant="h4" gutterBottom>
-                  {stats.uniqueTenants}
-                </Typography>
-                <Typography variant="subtitle1" color="text.secondary">
-                  Unique Tenants
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={6}>
             <Card sx={{ height: '100%', display: 'flex', alignItems: 'center' }}>
               <CardContent sx={{ textAlign: 'center', width: '100%' }}>
                 <CalendarTodayIcon color="primary" sx={{ fontSize: 40, mb: 2 }} />
@@ -132,7 +113,7 @@ const HomePage = () => {
           <Grid item xs={12} sm={6} md={4}>
             <Button
               component={Link}
-              to="/room-list"
+              to="/rooms"
               variant="contained"
               size="large"
               startIcon={<MeetingRoomIcon />}
@@ -187,22 +168,8 @@ const HomePage = () => {
 
           <Grid item xs={12} sm={6} md={4}>
             <Button
-              component={Link}
-              to="/notes/home"
-              variant="contained"
-              size="large"
-              startIcon={<NotesIcon />}
-              fullWidth
-              sx={{ py: 2 }}
-            >
-              Notes
-            </Button>
-          </Grid>
-
-          <Grid item xs={12} sm={6} md={4}>
-            <Button
               component="a"
-              href="https://github.com/rental-management-system"
+              href="https://github.com/adityaDalai1/rntMgmt-Adi"
               target="_blank"
               rel="noopener noreferrer"
               variant="contained"

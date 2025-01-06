@@ -23,7 +23,7 @@ const App = () => (
       <Box component="main" flexGrow={1} py={3}>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/room-list" element={<ShowRoomList />} />
+          <Route path="/rooms" element={<ShowRoomList />} />
           <Route path="/create-room" element={<CreateRoom />} />
           <Route path="/edit-room/:id" element={<UpdateRoomInfo />} />
           <Route path="/show-room/:id" element={<ShowRoomDetails />} />
