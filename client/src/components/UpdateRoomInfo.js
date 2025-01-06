@@ -21,7 +21,7 @@ function UpdateRoomInfo(props) {
 
   useEffect(() => {
     axios
-      .get(`/api/rooms/${id}`)
+      .get(`https://5000-adityadalai1-rntmgmtadi-ckl562dv9tf.ws-us117.gitpod.io/api/rooms/${id}`)
       .then((res) => {
         setRoom({
           name: res.data.name,
@@ -68,7 +68,7 @@ function UpdateRoomInfo(props) {
     };
 
     axios
-      .put(`/api/rooms/${id}`, data)
+      .put(`https://5000-adityadalai1-rntmgmtadi-ckl562dv9tf.ws-us117.gitpod.io/api/rooms/${id}`, data)
       .then((res) => {
         navigate(`/show-room/${id}`);
       })

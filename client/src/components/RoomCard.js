@@ -20,7 +20,7 @@ const RoomCard = ({ room }) => {
       }}
     >
       <img
-        src="https://images.unsplash.com/photo-1560185127-6a8c1b3a3774"
+        src="https://media.architecturaldigest.com/photos/56eae20138cde43e159fc53c/master/pass/most-expensive-suite-burj-al-arab-07.jpg"
         alt="Room"
         style={{ height: 200, objectFit: 'cover', width: '100%' }}
       />

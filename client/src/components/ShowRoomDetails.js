@@ -34,7 +34,7 @@ const ShowRoomDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`/api/rooms/${id}`)
+      .get(`https://5000-adityadalai1-rntmgmtadi-ckl562dv9tf.ws-us117.gitpod.io/api/rooms/${id}`)
       .then((res) => {
         setRoom(res.data);
       })
@@ -49,9 +49,9 @@ const ShowRoomDetails = () => {
 
   const handleDeleteConfirm = () => {
     axios
-      .delete(`/api/rooms/${id}`)
+      .delete(`https://5000-adityadalai1-rntmgmtadi-ckl562dv9tf.ws-us117.gitpod.io/api/rooms/${id}`)
       .then((res) => {
-        navigate('/room-list');
+        navigate('/rooms');
       })
       .catch((err) => {
         console.log('Error from ShowRoomDetails_deleteClick');
@@ -91,9 +91,9 @@ const ShowRoomDetails = () => {
               <Typography variant="body1" paragraph>
                 {room.description}
               </Typography>
-              <Typography variant="body1">Price: ${room.price}</Typography>
-              <Typography variant="body1">Availability: {room.isAvailable ? 'Available' : 'Unavailable'}</Typography>
-              <Typography variant="body1">Added On: {new Date(room.addedDate).toLocaleDateString()}</Typography>
+              <Typography variant="body1">Price: ${room.rentperday}</Typography>
+              <Typography variant="body1">Availability: {room.roomissueddate ? 'Available' : 'Unavailable'}</Typography>
+              <Typography variant="body1">Added On: {new Date(room.roomissueddate).toLocaleDateString()}</Typography>
             </Box>
           </Grid>
         </Grid>
@@ -102,7 +102,7 @@ const ShowRoomDetails = () => {
           <Button
             startIcon={<ArrowBackIcon />}
             component={RouterLink}
-            to="/room-list"
+            to="/rooms"
             variant="outlined"
           >
             Back to Room List
