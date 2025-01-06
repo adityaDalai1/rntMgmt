@@ -72,7 +72,7 @@ const ShowRoomDetails = () => {
               <CardMedia
                 component="img"
                 height="300"
-                image="https://images.unsplash.com/photo-1495446815901-a7297e633e8d" // Placeholder image, replace if necessary
+                image="https://media.architecturaldigest.com/photos/56eae20138cde43e159fc53c/master/pass/most-expensive-suite-burj-al-arab-07.jpg" // Placeholder image, replace if necessary
                 alt={room.name}
               />
             </Card>
