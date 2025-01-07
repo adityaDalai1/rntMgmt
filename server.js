@@ -16,7 +16,7 @@ connectDB();
 app.use(express.json()); // Middleware to parse JSON requests
 app.use(cors());
 
-app.get("/", (req, res) => {
+app.get("/home", (req, res) => {
     res.send("HomePage Of The Rental Management App"); // Home page route
 });
 

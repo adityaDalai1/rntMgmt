@@ -35,7 +35,7 @@ const SearchRoom = () => {
     });
 
     useEffect(() => {
-        axios.get('https://5000-adityadalai1-rntmgmtadi-ckl562dv9tf.ws-us117.gitpod.io/api/rooms')
+        axios.get('https://rental-mgmt.onrender.com/api/rooms')
             .then(res => {
                 setRooms(res.data);
                 setFilteredRooms(res.data);
