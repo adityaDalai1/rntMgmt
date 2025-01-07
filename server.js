@@ -1,8 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require("dotenv")
-// const path = require('path');
-
+const path = require('path');
+const bodyParser = require("body-parser");
 const connectDB = require('./config/db'); // Import the database connection function
 const roomRoutes = require('./routes/roomRoutes'); // Import room routes
 dotenv.config({ path: "./config.env"})
@@ -20,7 +20,7 @@ app.get("/", (req, res) => {
     res.send("HomePage Of The Rental Management App"); // Home page route
 });
 
-// // SERVE STATIC FILES
+//SERVE STATIC FILES
 // app.use(express.static(path.join(__dirname, "./client/build")));
 // app.get("*", function (_, res) {
 //     res.sendFile(
