@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { Slide, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import "../CreateRoom.css"
 
 import axios from 'axios';
 
@@ -30,7 +31,7 @@ const CreateRoom = (props) => {
     e.preventDefault();
 
     axios
-      .post('https://rental-mgmt.onrender.com/api/rooms', room)
+      .post('https://5000-adityadalai1-rntmgmtadi-ckl562dv9tf.ws-us117.gitpod.io/api/rooms', room)
       .then((res) => {
         setRoom({
           name: '',

@@ -49,7 +49,7 @@ const ShowRoomDetails = () => {
 
   const handleDeleteConfirm = () => {
     axios
-      .delete(`https://rental-mgmt.onrender.com/api/rooms/${id}`)
+      .delete(`https://5000-adityadalai1-rntmgmtadi-ckl562dv9tf.ws-us117.gitpod.io/api/rooms/${id}`)
       .then((res) => {
         navigate('/rooms');
       })
