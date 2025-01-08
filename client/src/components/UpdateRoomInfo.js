@@ -68,7 +68,7 @@ function UpdateRoomInfo(props) {
     };
 
     axios
-      .put(`https://rental-mgmt.onrender.com/api/rooms/${id}`, data)
+      .put(`https://5000-adityadalai1-rntmgmtadi-ckl562dv9tf.ws-us117.gitpod.io/api/rooms/${id}`, data)
       .then((res) => {
         navigate(`/show-room/${id}`);
       })
