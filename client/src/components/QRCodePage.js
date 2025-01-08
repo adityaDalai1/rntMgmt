@@ -16,10 +16,10 @@ import axios from 'axios';
 const QRCodePage = () => {
   const [rooms, setRooms] = useState([]);
   const [loading, setLoading] = useState(true);
-  const baseUrl = 'https://5000-adityadalai1-rntmgmtadi-ckl562dv9tf.ws-us117.gitpod.io/api/rooms/';
+  const baseUrl = 'https://rental-mgmt.onrender.com/api/rooms/';
 
   useEffect(() => {
-    axios.get('https://5000-adityadalai1-rntmgmtadi-ckl562dv9tf.ws-us117.gitpod.io/api/rooms')
+    axios.get('https://rental-mgmt.onrender.com/api/rooms')
       .then(res => {
         setRooms(res.data);
         setLoading(false);

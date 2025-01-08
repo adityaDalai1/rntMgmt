@@ -31,7 +31,7 @@ const CreateRoom = (props) => {
     e.preventDefault();
 
     axios
-      .post('https://5000-adityadalai1-rntmgmtadi-ckl562dv9tf.ws-us117.gitpod.io/api/rooms', room)
+      .post('https://rental-mgmt.onrender.com/api/rooms', room)
       .then((res) => {
         setRoom({
           name: '',

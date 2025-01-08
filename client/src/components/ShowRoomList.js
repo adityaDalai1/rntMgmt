@@ -11,7 +11,7 @@ function ShowRoomList() {
 
   useEffect(() => {
     axios
-      .get("https://5000-adityadalai1-rntmgmtadi-ckl562dv9tf.ws-us117.gitpod.io/api/rooms")
+      .get("https://rental-mgmt.onrender.com/api/rooms")
       .then((res) => {
         setRooms(res.data);
         setLoading(false); // Set loading to false once data is fetched

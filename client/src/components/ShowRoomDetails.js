@@ -34,7 +34,7 @@ const ShowRoomDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`https://5000-adityadalai1-rntmgmtadi-ckl562dv9tf.ws-us117.gitpod.io/api/rooms/${id}`)
+      .get(`https://rental-mgmt.onrender.com/api/rooms/${id}`)
       .then((res) => {
         setRoom(res.data);
       })
@@ -49,7 +49,7 @@ const ShowRoomDetails = () => {
 
   const handleDeleteConfirm = () => {
     axios
-      .delete(`https://5000-adityadalai1-rntmgmtadi-ckl562dv9tf.ws-us117.gitpod.io/api/rooms/${id}`)
+      .delete(`https://rental-mgmt.onrender.com/api/rooms/${id}`)
       .then((res) => {
         navigate('/rooms');
       })
