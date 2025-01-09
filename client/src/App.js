@@ -2,7 +2,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { ThemeProvider, CssBaseline, Box } from '@mui/material';
-import forestDuskTheme from './theme/forestDusk';
+import sereneMornTheme from './theme/sereneMorn';
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -16,7 +16,7 @@ import QRCodePage from './components/QRCodePage';
 import SearchRoom from './components/SearchRoom';
 
 const App = () => (
-  <ThemeProvider theme={forestDuskTheme}>
+  <ThemeProvider theme={sereneMornTheme}>
     <CssBaseline />
     <Box display="flex" flexDirection="column" minHeight="100vh">
       <Navbar />

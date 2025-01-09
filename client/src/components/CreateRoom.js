@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Slide, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import "../CreateRoom.css"
-
+import {
+  Box,
+  Container,
+  TextField,
+  Button,
+  Typography,
+  Grid,
+  Paper,
+} from '@mui/material';
 import axios from 'axios';
 
-const CreateRoom = (props) => {
+const CreateRoom = () => {
   const navigate = useNavigate();
   const [room, setRoom] = useState({
     name: '',
@@ -31,8 +37,8 @@ const CreateRoom = (props) => {
     e.preventDefault();
 
     axios
-      .post('https://rental-mgmt.onrender.com/api/rooms', room)
-      .then((res) => {
+      .post('https://5000-adityadalai1-rntmgmtadi-ckl562dv9tf.ws-us117.gitpod.io/api/rooms', room)
+      .then(() => {
         setRoom({
           name: '',
           maxcount: '',
@@ -47,14 +53,9 @@ const CreateRoom = (props) => {
         });
 
         toast.success('Room added successfully!', {
-          position: "top-right",
+          position: 'top-right',
           autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
+          theme: 'dark',
           transition: Slide,
         });
 
@@ -65,163 +66,143 @@ const CreateRoom = (props) => {
       .catch((err) => {
         console.error('Error in CreateRoom:', err);
         toast.error('Something went wrong, try again!', {
-          position: "top-right",
+          position: 'top-right',
           autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
+          theme: 'dark',
           transition: Slide,
         });
       });
   };
 
   return (
-    <div className='CreateRoom'>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-        transition={Slide}
-      />
-
-      <div className='container'>
-        <div className='row'>
-          <div className='col-md-8 m-auto'>
-            <br />
-            <Link to='/' className='btn btn-outline-warning float-left'>
-              Show Room List
-            </Link>
-          </div>
-          <div className='col-md-8 m-auto'>
-            <h1 className='display-4 text-center'>Add Room</h1>
-            <p className='lead text-center'>Create new room</p>
-
-            <form noValidate onSubmit={onSubmit}>
-              <div className='form-group'>
-                <input
-                  type='text'
-                  placeholder='Room Name'
-                  name='name'
-                  className='form-control'
-                  value={room.name}
-                  onChange={onChange}
-                />
-              </div>
-              <br />
-
-              <div className='form-group'>
-                <input
-                  type='number'
-                  placeholder='Max Count'
-                  name='maxcount'
-                  className='form-control'
-                  value={room.maxcount}
-                  onChange={onChange}
-                />
-              </div>
-              <br />
-
-              <div className='form-group'>
-                <input
-                  type='text'
-                  placeholder='Phone Number'
-                  name='phonenumber'
-                  className='form-control'
-                  value={room.phonenumber}
-                  onChange={onChange}
-                />
-              </div>
-              <br />
-
-              <div className='form-group'>
-                <input
-                  type='number'
-                  placeholder='Rent Per Day'
-                  name='rentperday'
-                  className='form-control'
-                  value={room.rentperday}
-                  onChange={onChange}
-                />
-              </div>
-              <br />
-
-              <div className='form-group'>
-                <input
-                  type='text'
-                  placeholder='Type of Room'
-                  name='type'
-                  className='form-control'
-                  value={room.type}
-                  onChange={onChange}
-                />
-              </div>
-              <br />
-
-              <div className='form-group'>
-                <textarea
-                  placeholder='Room Description'
-                  name='description'
-                  className='form-control'
-                  value={room.description}
-                  onChange={onChange}
-                />
-              </div>
-              <br />
-
-              <div className='form-group'>
-                <input
-                  type='text'
-                  placeholder='Location'
-                  name='location'
-                  className='form-control'
-                  value={room.location}
-                  onChange={onChange}
-                />
-              </div>
-              <br />
-
-              <div className='form-group'>
-                <input
-                  type='text'
-                  placeholder='Amenities (comma-separated)'
-                  name='amenities'
-                  className='form-control'
-                  value={room.amenities}
-                  onChange={onChange}
-                />
-              </div>
-              <br />
-
-              <div className='form-group'>
-                <input
-                  type='date'
-                  name='roomissueddate'
-                  className='form-control'
-                  value={room.roomissueddate}
-                  onChange={onChange}
-                />
-              </div>
-              <br />
-
-              <input
-                type='submit'
-                className='btn btn-outline-warning btn-block mt-4'
+    <Container maxWidth="sm">
+      <ToastContainer />
+      <Paper elevation={3} sx={{ padding: 4, marginTop: 4 }}>
+        <Typography variant="h4" textAlign="center" gutterBottom>
+          Add New Room
+        </Typography>
+        <Typography variant="subtitle1" textAlign="center" gutterBottom>
+          Create a new room entry by filling in the details below.
+        </Typography>
+        <Box component="form" noValidate onSubmit={onSubmit}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                label="Room Name"
+                name="name"
+                value={room.name}
+                onChange={onChange}
+                fullWidth
+                required
               />
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                label="Max Count"
+                name="maxcount"
+                type="number"
+                value={room.maxcount}
+                onChange={onChange}
+                fullWidth
+                required
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                label="Phone Number"
+                name="phonenumber"
+                value={room.phonenumber}
+                onChange={onChange}
+                fullWidth
+                required
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                label="Rent Per Day"
+                name="rentperday"
+                type="number"
+                value={room.rentperday}
+                onChange={onChange}
+                fullWidth
+                required
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                label="Room Type"
+                name="type"
+                value={room.type}
+                onChange={onChange}
+                fullWidth
+                required
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Description"
+                name="description"
+                value={room.description}
+                onChange={onChange}
+                fullWidth
+                multiline
+                rows={4}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Location"
+                name="location"
+                value={room.location}
+                onChange={onChange}
+                fullWidth
+                required
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Amenities (comma-separated)"
+                name="amenities"
+                value={room.amenities}
+                onChange={onChange}
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Room Issued Date"
+                name="roomissueddate"
+                type="date"
+                value={room.roomissueddate}
+                onChange={onChange}
+                fullWidth
+                InputLabelProps={{ shrink: true }}
+              />
+            </Grid>
+          </Grid>
+          <Box display="flex" justifyContent="space-between" marginTop={3}>
+            <Button
+              variant="contained"
+              color="primary"
+              type="submit"
+              fullWidth
+              sx={{ marginRight: 1 }}
+            >
+              Add Room
+            </Button>
+            <Button
+              variant="outlined"
+              color="secondary"
+              fullWidth
+              component={Link}
+              to="/"
+            >
+              Cancel
+            </Button>
+          </Box>
+        </Box>
+      </Paper>
+    </Container>
   );
 };
 

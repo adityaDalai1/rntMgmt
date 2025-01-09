@@ -11,7 +11,6 @@ import {
   CardContent,
   Fade,
   CircularProgress,
-  
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import HotelIcon from '@mui/icons-material/Hotel';
@@ -31,7 +30,7 @@ const HomePage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('https://rental-mgmt.onrender.com/api/rooms')
+    axios.get('https://5000-adityadalai1-rntmgmtadi-ckl562dv9tf.ws-us117.gitpod.io/api/rooms')
       .then(res => {
         const rooms = res.data;
         const recentRoom = rooms.sort((a, b) =>
@@ -95,7 +94,7 @@ const HomePage = () => {
                   Latest Room
                 </Typography>
                 <Typography variant="subtitle1" color="text.secondary">
-                  {stats.recentRoom?.roomName || 'No rooms yet'}
+                  {stats.recentRoom?.roomName || 'No rooms available'}
                 </Typography>
               </CardContent>
             </Card>
@@ -195,7 +194,6 @@ const HomePage = () => {
               Search Rooms
             </Button>
           </Grid>
-
         </Grid>
       </Container>
     </Fade>

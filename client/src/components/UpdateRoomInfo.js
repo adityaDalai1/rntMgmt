@@ -1,8 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
+import {
+  Box,
+  TextField,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  Typography,
+  Paper,
+  Grid,
+  Container,
+} from '@mui/material';
 import axios from 'axios';
 
-function UpdateRoomInfo(props) {
+function UpdateRoomInfo() {
   const [room, setRoom] = useState({
     name: '',
     maxcount: '',
@@ -13,7 +24,7 @@ function UpdateRoomInfo(props) {
     location: '',
     amenities: [],
     roomissueddate: '',
-    availability: true
+    availability: true,
   });
 
   const { id } = useParams();
@@ -33,12 +44,11 @@ function UpdateRoomInfo(props) {
           location: res.data.location,
           amenities: res.data.amenities,
           roomissueddate: res.data.roomissueddate,
-          availability: res.data.availability
+          availability: res.data.availability,
         });
       })
       .catch((err) => {
-        console.log('Error from UpdateRoomInfo GET request');
-        console.log(err);
+        console.error('Error fetching room details:', err);
       });
   }, [id]);
 
@@ -55,182 +65,157 @@ function UpdateRoomInfo(props) {
     e.preventDefault();
 
     const data = {
-      name: room.name,
-      maxcount: room.maxcount,
-      phonenumber: room.phonenumber,
-      rentperday: room.rentperday,
-      type: room.type,
-      description: room.description,
-      location: room.location,
-      amenities: room.amenities,
-      roomissueddate: room.roomissueddate,
-      availability: room.availability
+      ...room,
     };
 
     axios
-      .put(`https://rental-mgmt.onrender.com/api/rooms/${id}`, data)
-      .then((res) => {
+      .put(`https://5000-adityadalai1-rntmgmtadi-ckl562dv9tf.ws-us117.gitpod.io/api/rooms/${id}`, data)
+      .then(() => {
         navigate(`/show-room/${id}`);
       })
       .catch((err) => {
-        console.log('Error in UpdateRoomInfo PUT request ->');
-        console.log(err);
+        console.error('Error updating room info:', err);
       });
   };
 
   return (
-    <div className="UpdateRoomInfo">
-      <div className="container">
-        <div className="row">
-          <div className="col-md-8 m-auto">
-            <br />
-            <Link to="/" className="btn btn-outline-warning float-left">
-              Show Room List
-            </Link>
-          </div>
-          <div className="col-md-8 m-auto">
-            <h1 className="display-4 text-center">Edit Room</h1>
-            <p className="lead text-center">Update Room's Info</p>
-          </div>
-        </div>
-
-        <div className="col-md-8 m-auto">
-          <form noValidate onSubmit={onSubmit}>
-            <div className="form-group">
-              <label htmlFor="name">Room Name</label>
-              <input
-                type="text"
-                placeholder="Name of the Room"
+    <Container>
+      <Paper elevation={3} sx={{ padding: 4, marginY: 4 }}>
+        <Typography variant="h4" component="h1" textAlign="center" gutterBottom>
+          Edit Room Information
+        </Typography>
+        <Box component="form" noValidate onSubmit={onSubmit}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                label="Room Name"
                 name="name"
-                className="form-control"
                 value={room.name}
                 onChange={onChange}
+                fullWidth
+                required
               />
-            </div>
-            <br />
-
-            <div className="form-group">
-              <label htmlFor="maxcount">Max Count</label>
-              <input
-                type="number"
-                placeholder="Max Count of People"
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                label="Max Count"
                 name="maxcount"
-                className="form-control"
+                type="number"
                 value={room.maxcount}
                 onChange={onChange}
+                fullWidth
+                required
               />
-            </div>
-            <br />
-
-            <div className="form-group">
-              <label htmlFor="phonenumber">Phone Number</label>
-              <input
-                type="text"
-                placeholder="Phone Number"
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                label="Phone Number"
                 name="phonenumber"
-                className="form-control"
                 value={room.phonenumber}
                 onChange={onChange}
+                fullWidth
+                required
               />
-            </div>
-            <br />
-
-            <div className="form-group">
-              <label htmlFor="rentperday">Rent Per Day</label>
-              <input
-                type="number"
-                placeholder="Rent per Day"
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                label="Rent Per Day"
                 name="rentperday"
-                className="form-control"
+                type="number"
                 value={room.rentperday}
                 onChange={onChange}
+                fullWidth
+                required
               />
-            </div>
-            <br />
-
-            <div className="form-group">
-              <label htmlFor="type">Room Type</label>
-              <input
-                type="text"
-                placeholder="Room Type (e.g., Single, Double)"
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                label="Room Type"
                 name="type"
-                className="form-control"
                 value={room.type}
                 onChange={onChange}
+                fullWidth
+                required
               />
-            </div>
-            <br />
-
-            <div className="form-group">
-              <label htmlFor="description">Description</label>
-              <textarea
-                placeholder="Description of the Room"
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Description"
                 name="description"
-                className="form-control"
                 value={room.description}
                 onChange={onChange}
+                fullWidth
+                multiline
+                rows={4}
               />
-            </div>
-            <br />
-
-            <div className="form-group">
-              <label htmlFor="location">Location</label>
-              <input
-                type="text"
-                placeholder="Location of the Room"
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Location"
                 name="location"
-                className="form-control"
                 value={room.location}
                 onChange={onChange}
+                fullWidth
+                required
               />
-            </div>
-            <br />
-
-            <div className="form-group">
-              <label htmlFor="amenities">Amenities</label>
-              <input
-                type="text"
-                placeholder="Amenities (comma separated)"
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Amenities (comma-separated)"
                 name="amenities"
-                className="form-control"
                 value={room.amenities.join(',')}
                 onChange={onChange}
+                fullWidth
               />
-            </div>
-            <br />
-
-            <div className="form-group">
-              <label htmlFor="roomissueddate">Room Issued Date</label>
-              <input
-                type="date"
-                placeholder="Room Issued Date"
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Room Issued Date"
                 name="roomissueddate"
-                className="form-control"
+                type="date"
                 value={room.roomissueddate}
                 onChange={onChange}
+                fullWidth
+                InputLabelProps={{ shrink: true }}
               />
-            </div>
-            <br />
-
-            <div className="form-group">
-              <label htmlFor="availability">Availability</label>
-              <input
-                type="checkbox"
-                name="availability"
-                checked={room.availability}
-                onChange={(e) => setRoom({ ...room, availability: e.target.checked })}
+            </Grid>
+            <Grid item xs={12}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    name="availability"
+                    checked={room.availability}
+                    onChange={(e) =>
+                      setRoom({ ...room, availability: e.target.checked })
+                    }
+                  />
+                }
+                label="Available"
               />
-            </div>
-            <br />
-
-            <button type="submit" className="btn btn-outline-info btn-lg btn-block">
+            </Grid>
+          </Grid>
+          <Box display="flex" justifyContent="space-between" marginTop={3}>
+            <Button
+              variant="contained"
+              color="primary"
+              type="submit"
+              sx={{ width: '48%' }}
+            >
               Update Room
-            </button>
-            <br /> <br />
-          </form>
-        </div>
-      </div>
-    </div>
+            </Button>
+            <Button
+              variant="outlined"
+              color="secondary"
+              component={Link}
+              to="/"
+              sx={{ width: '48%' }}
+            >
+              Cancel
+            </Button>
+          </Box>
+        </Box>
+      </Paper>
+    </Container>
   );
 }
 
