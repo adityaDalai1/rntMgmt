@@ -75,134 +75,148 @@ const CreateRoom = () => {
   };
 
   return (
-    <Container maxWidth="sm">
+    <Box
+      sx={{
+        backgroundImage: `url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTVb9pjX4KRQU5GwBY6Xs4N-yFKleKdHlfNQ&s')`, // Replace with your image URL
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        minHeight: '100vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 2,
+      }}
+    >
       <ToastContainer />
-      <Paper elevation={3} sx={{ padding: 4, marginTop: 4 }}>
-        <Typography variant="h4" textAlign="center" gutterBottom>
-          Add New Room
-        </Typography>
-        <Typography variant="subtitle1" textAlign="center" gutterBottom>
-          Create a new room entry by filling in the details below.
-        </Typography>
-        <Box component="form" noValidate onSubmit={onSubmit}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                label="Room Name"
-                name="name"
-                value={room.name}
-                onChange={onChange}
-                fullWidth
-                required
-              />
+      <Container maxWidth="sm">
+        <Paper elevation={3} sx={{ padding: 4, backgroundColor: 'rgba(255, 255, 255, 0.9)' }}>
+          <Typography variant="h4" textAlign="center" gutterBottom>
+            Add New Room
+          </Typography>
+          <Typography variant="subtitle1" textAlign="center" gutterBottom>
+            Create a new room entry by filling in the details below.
+          </Typography>
+          <Box component="form" noValidate onSubmit={onSubmit}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  label="Room Name"
+                  name="name"
+                  value={room.name}
+                  onChange={onChange}
+                  fullWidth
+                  required
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  label="Max Count"
+                  name="maxcount"
+                  type="number"
+                  value={room.maxcount}
+                  onChange={onChange}
+                  fullWidth
+                  required
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  label="Phone Number"
+                  name="phonenumber"
+                  value={room.phonenumber}
+                  onChange={onChange}
+                  fullWidth
+                  required
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  label="Rent Per Day"
+                  name="rentperday"
+                  type="number"
+                  value={room.rentperday}
+                  onChange={onChange}
+                  fullWidth
+                  required
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  label="Room Type"
+                  name="type"
+                  value={room.type}
+                  onChange={onChange}
+                  fullWidth
+                  required
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label="Description"
+                  name="description"
+                  value={room.description}
+                  onChange={onChange}
+                  fullWidth
+                  multiline
+                  rows={4}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label="Location"
+                  name="location"
+                  value={room.location}
+                  onChange={onChange}
+                  fullWidth
+                  required
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label="Amenities (comma-separated)"
+                  name="amenities"
+                  value={room.amenities}
+                  onChange={onChange}
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label="Room Issued Date"
+                  name="roomissueddate"
+                  type="date"
+                  value={room.roomissueddate}
+                  onChange={onChange}
+                  fullWidth
+                  InputLabelProps={{ shrink: true }}
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                label="Max Count"
-                name="maxcount"
-                type="number"
-                value={room.maxcount}
-                onChange={onChange}
+            <Box display="flex" justifyContent="space-between" marginTop={3}>
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
                 fullWidth
-                required
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                label="Phone Number"
-                name="phonenumber"
-                value={room.phonenumber}
-                onChange={onChange}
+                sx={{ marginRight: 1 }}
+              >
+                Add Room
+              </Button>
+              <Button
+                variant="outlined"
+                color="secondary"
                 fullWidth
-                required
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                label="Rent Per Day"
-                name="rentperday"
-                type="number"
-                value={room.rentperday}
-                onChange={onChange}
-                fullWidth
-                required
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                label="Room Type"
-                name="type"
-                value={room.type}
-                onChange={onChange}
-                fullWidth
-                required
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Description"
-                name="description"
-                value={room.description}
-                onChange={onChange}
-                fullWidth
-                multiline
-                rows={4}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Location"
-                name="location"
-                value={room.location}
-                onChange={onChange}
-                fullWidth
-                required
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Amenities (comma-separated)"
-                name="amenities"
-                value={room.amenities}
-                onChange={onChange}
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Room Issued Date"
-                name="roomissueddate"
-                type="date"
-                value={room.roomissueddate}
-                onChange={onChange}
-                fullWidth
-                InputLabelProps={{ shrink: true }}
-              />
-            </Grid>
-          </Grid>
-          <Box display="flex" justifyContent="space-between" marginTop={3}>
-            <Button
-              variant="contained"
-              color="primary"
-              type="submit"
-              fullWidth
-              sx={{ marginRight: 1 }}
-            >
-              Add Room
-            </Button>
-            <Button
-              variant="outlined"
-              color="secondary"
-              fullWidth
-              component={Link}
-              to="/"
-            >
-              Cancel
-            </Button>
+                component={Link}
+                to="/"
+              >
+                Cancel
+              </Button>
+            </Box>
           </Box>
-        </Box>
-      </Paper>
-    </Container>
+        </Paper>
+      </Container>
+    </Box>
   );
 };
 

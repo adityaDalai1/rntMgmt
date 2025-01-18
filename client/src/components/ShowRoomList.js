@@ -23,44 +23,58 @@ function ShowRoomList() {
   }, []);
 
   return (
-    <Container maxWidth="lg" sx={{ py: 4 }}>
-      <Typography variant="h3" component="h1" color="primary" gutterBottom>
-        Rooms List
-      </Typography>
+    <Box
+      sx={{
+        backgroundImage: `url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTVb9pjX4KRQU5GwBY6Xs4N-yFKleKdHlfNQ&s')`, // Replace with your image URL
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        py: 4,
+      }}
+    >
+      <Container maxWidth="lg" sx={{ backgroundColor: 'rgba(255, 255, 255, 0.9)', borderRadius: 2, p: 4 }}>
+        <Typography variant="h3" component="h1" color="primary" gutterBottom>
+          Rooms List
+        </Typography>
 
-      <Button
-        component={Link}
-        to="/create-room"
-        color="primary"
-        variant="contained"
-        sx={{ mb: 4 }}
-      >
-        Add New Room
-      </Button>
+        <Button
+          component={Link}
+          to="/create-room"
+          color="primary"
+          variant="contained"
+          sx={{ mb: 4 }}
+        >
+          Add New Room
+        </Button>
 
-      {loading ? (
-        // Show a loading spinner while data is being fetched
-        <Box display="flex" justifyContent="center" mt={4}>
-          <CircularProgress />
-        </Box>
-      ) : (
-        <Grid container spacing={3}>
-          {rooms.length === 0 ? (
-            <Grid item xs={12}>
-              <Typography variant="h6" color="text.secondary">
-                No rooms found!
-              </Typography>
-            </Grid>
-          ) : (
-            rooms.map((room, index) => (
-              <Grid item xs={12} sm={6} md={4} key={index}>
-                <RoomCard room={room} />
+        {loading ? (
+          // Show a loading spinner while data is being fetched
+          <Box display="flex" justifyContent="center" mt={4}>
+            <CircularProgress />
+          </Box>
+        ) : (
+          <Grid container spacing={3}>
+            {rooms.length === 0 ? (
+              <Grid item xs={12}>
+                <Typography variant="h6" color="text.secondary">
+                  No rooms found!
+                </Typography>
               </Grid>
-            ))
-          )}
-        </Grid>
-      )}
-    </Container>
+            ) : (
+              rooms.map((room, index) => (
+                <Grid item xs={12} sm={6} md={4} key={index}>
+                  <RoomCard room={room} />
+                </Grid>
+              ))
+            )}
+          </Grid>
+        )}
+      </Container>
+    </Box>
   );
 }
 
