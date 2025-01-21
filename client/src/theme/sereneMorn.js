@@ -70,6 +70,11 @@ const sereneMornTheme = createTheme({
     },
   },
   components: {
+    MuiCssBaseline: {
+      styleOverrides: `  
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Merriweather:wght@400;700&display=swap');
+      `,
+    },
     MuiAppBar: {
       styleOverrides: {
         root: {
@@ -85,11 +90,7 @@ const sereneMornTheme = createTheme({
         },
       },
     },
-    MuiCssBaseline: {
-      styleOverrides: `  
-        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Merriweather:wght@400;700&display=swap');
-      `,
-    },
+    
   },
 });
 

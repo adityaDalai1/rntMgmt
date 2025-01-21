@@ -16,22 +16,23 @@ connectDB();
 app.use(express.json()); // Middleware to parse JSON requests
 app.use(cors());
 
+app.use('/api', roomRoutes); // Use room routes with prefix '/api'
+
 app.get("/home", (req, res) => {
     res.send("HomePage Of The Rental Management App"); // Home page route
 });
 
 //SERVE STATIC FILES
-// app.use(express.static(path.join(__dirname, "./client/build")));
-// app.get("*", function (_, res) {
-//     res.sendFile(
-//         path.join(__dirname, "./client/build/index.html"),
-//         function (err) {
-//             res.status(500).send(err);
-//         }
-//     );
-//  });
+app.use(express.static(path.join(__dirname, "./client/build")));
+app.get("*", function (_, res) {
+    res.sendFile(
+        path.join(__dirname, "./client/build/index.html"),
+        function (err) {
+            res.status(500).send(err);
+        }
+    );
+ });
 
-app.use('/api', roomRoutes); // Use room routes with prefix '/api'
 
 const PORT = process.env.PORT || 5000;
 // Start the server

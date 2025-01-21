@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import {
   Box,
@@ -11,7 +12,6 @@ import {
   Grid,
   Container,
 } from '@mui/material';
-import axios from 'axios';
 
 function UpdateRoomInfo() {
   const [room, setRoom] = useState({
@@ -69,7 +69,7 @@ function UpdateRoomInfo() {
     };
 
     axios
-      .put(`https://5000-aditydalai1-rntmgmtadi-ckl562dv9tf.ws-us117.gitpod.io/api/rooms/${id}`, data)
+      .put(`https://5000-adityadalai1-rntmgmtadi-ckl562dv9tf.ws-us117.gitpod.io/api/rooms/${id}`, data)
       .then(() => {
         navigate(`/show-room/${id}`);
       })
