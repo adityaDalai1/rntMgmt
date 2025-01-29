@@ -16,7 +16,7 @@ import axios from 'axios';
 const QRCodePage = () => {
   const [rooms, setRooms] = useState([]);
   const [loading, setLoading] = useState(true);
-  const baseUrl = 'https://5000-adityadalai1-rntmgmtadi-ckl562dv9tf.ws-us117.gitpod.io/api/rooms/';
+  const frontendBaseUrl = `${window.location.origin}/show-room/`; // Updated to link to frontend details page
 
   useEffect(() => {
     axios.get('https://5000-adityadalai1-rntmgmtadi-ckl562dv9tf.ws-us117.gitpod.io/api/rooms')
@@ -87,7 +87,7 @@ const QRCodePage = () => {
               }}>
                 <QRCodeSVG
                   id={`qr-${room._id}`}
-                  value={`${baseUrl}${room._id}`}
+                  value={`${frontendBaseUrl}/${room._id}`}  // Updated to link to frontend details page
                   size={200}
                   level="H"
                   includeMargin
@@ -98,7 +98,7 @@ const QRCodePage = () => {
                   align="center" 
                   sx={{ mt: 2, mb: 1 }}
                 >
-                  {room.name}
+                  Room {room.room_number}
                 </Typography>
                 <Typography 
                   variant="body2" 
@@ -106,12 +106,12 @@ const QRCodePage = () => {
                   align="center" 
                   sx={{ mb: 2 }}
                 >
-                  Located in {room.location}
+                  Located in {room.building_name}
                 </Typography>
                 <Button
                   variant="outlined"
                   startIcon={<DownloadIcon />}
-                  onClick={() => downloadQR(room._id, room.name)}
+                  onClick={() => downloadQR(room._id, room.room_number)}
                   size="small"
                 >
                   Download QR
